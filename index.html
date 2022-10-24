@@ -1,0 +1,72 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="./index.css" >
+    <title>3d-windows-visualización</title>
+</head>
+<body>
+    <div id="container">
+        <main id="main">
+            <div class="main-properity">
+                aqui van las propiedades de la ventana
+                <h2 class="main-properity-title">¿WHAT IS YOUR WINDOW?</h2>
+                <form action="" method="post">
+                    <div>
+                        <label for="width">Width</label>
+                        <input type="number" name="width" id="width">
+                    </div>
+                    <div>
+                        <label for="heigth">Heigth</label>
+                        <input type="number" name="heigth" id="heigth">
+                    </div>
+                    <div class="main-properity-form-type"> <!-- cuando estes menu se despliega debe de ocupar toda ña pantalla mostrando todos los tipos de ventana-->
+                        <label class="main-properity-form-type-descripcion" for="select-type">Type Windows (prueba)</label><br>
+                        <select  id="typeSelect" >
+                            <option disabled selected>Tipo de corte</opcion>
+                            <option value="0">coredizo</option>
+                            <option value="1">coredizo con marcos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p></p>
+                        <input type="text">
+                        <label for=""></label>
+                    </div>
+                    <div>
+                        <p></p>
+                        <input type="text">
+                        <label for=""></label>
+                    </div>
+                    <div>
+                        <p></p>
+                        <input type="text"><label for=""></label>
+                    </div>
+                    <div>
+                        <p></p>
+                        <input type="text"><label for=""></label>
+                    </div>
+                    <div>
+                        <p></p>
+                        <input type="text"><label for=""></label>
+                    </div>
+                    <div>
+                        <input type="button" value="iniciar" id="buttonIniciar"><label for=""></label>
+                    </div>
+                </form>
+            </div>
+
+            <div id="main-container3d">
+            </div>
+        </main>
+        <footer id="footer"></footer>
+    </div>
+
+    <script src="./index.js" type="module"></script>
+    <script src="./helpers/values.js" type="module"></script>
+    <script src="./helpers/values.js" type="module"></script>
+    <script src="./function/windowsType.js" type="module"></script>
+</body>
+</html>
