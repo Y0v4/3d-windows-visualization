@@ -60,12 +60,13 @@
   controls.screenSpacePanning = true;
 
 
-  // Guardando el ojeto de windowsType
-  let medidas =  JSON.parse(sessionStorage.getItem("medidas")); 
-
-
+  
+  
   // Funcion interprete
-  function interprete(medidas){// Esta funcion recoje datos de los modelos y tipos y los renderiza mm..
+  function interprete(){// Esta funcion recoje datos de los modelos y tipos y los renderiza mm..
+    // Guardando el ojeto de windowsType
+    let medidas =  JSON.parse(sessionStorage.getItem("medidas")); 
+    
     console.log("renderizado funcionando")
     // Renderizando el cuerpo
     models.cuerpo(
@@ -79,8 +80,9 @@
 
   // Iniciar esta cosa
   document.getElementById("buttonIniciar").addEventListener("click", ()=>{
-    interprete(medidas);
-    console.log("click funcionando")
+    interprete();
+    sessionStorage.removeItem("medidas");
+    scene.remove(derecha, izquierda, superior, inferior);
   })
 
   console.log(typeof medidas);

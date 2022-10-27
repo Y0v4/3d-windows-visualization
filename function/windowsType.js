@@ -6,15 +6,6 @@ function cuadrado (width, heigth, numeroDeCortes){
 }
 
 
-// Recibiendo datos del session storage
-var window, type
-window = new cuadrado(
-    sessionStorage.getItem("width"),
-    sessionStorage.getItem("heigth")
-);
-type = sessionStorage.getItem("type");
-
-
 // Expresando medidas
 let medidas = {
     width: NaN,
@@ -41,12 +32,24 @@ const windowsTypes = [
 ];
 
 
-// Ventana
-medidas.width = Number(window.width);
-medidas.heigth = Number(window.heigth);
-console.log(medidas.width)
-// ojo solo  de pueba
-sessionStorage.setItem("medidas", JSON.stringify(medidas));
+document.getElementById("buttonIniciar").addEventListener("click", ()=>{
+    // Recibiendo datos del session storage
+    var window, type
+    window = new cuadrado(
+    sessionStorage.getItem("width"),
+    sessionStorage.getItem("heigth")
+    );
+    type = sessionStorage.getItem("type");
+    
+    
+    // Ventana
+    medidas.width = Number(window.width);
+    medidas.heigth = Number(window.heigth);
+    console.log(medidas.width)
+    // ojo solo  de pueba
+    sessionStorage.setItem("medidas", JSON.stringify(medidas));
+})
+
 
 // Types
 
