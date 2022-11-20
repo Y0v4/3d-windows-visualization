@@ -33,7 +33,7 @@
 
   // ground
   let as = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({color: 0x808080, wireframe: true}))
-  let ad = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10), new THREE.MeshBasicMaterial({color: 0xcccccc, tranparent: true}));
+  let ad = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10), new THREE.MeshBasicMaterial({color: 0xcccccc}));
   as.rotation.x = Math.PI / 2;
   ad.rotation.x = -Math.PI / 2;
   as.position.y =+ 0.001;
@@ -72,9 +72,10 @@
     models.cuerpo(
       {width: medidas.width, heigth: medidas.heigth},
       scene,
-      {x: NaN, y: ((130+medidas.heigth)/40), z: NaN}// askldflk cuidado con lAS PUTAS CADENAS DE TEXTO AHHHHHH
+      {x: 0, y: 0, z: 0}// askldflk cuidado con lAS PUTAS CADENAS DE TEXTO AHHHHHH
+      //{x: NaN, y: ((130+medidas.heigth)/40), z: NaN}// askldflk cuidado con lAS PUTAS CADENAS DE TEXTO AHHHHHH
     );
-    console.log(((130+medidas.heigth)/40)-2.5)
+    console.log(medidas)
   }
 
 
@@ -82,7 +83,7 @@
   document.getElementById("buttonIniciar").addEventListener("click", ()=>{
     interprete();
     sessionStorage.removeItem("medidas");
-    scene.remove(derecha, izquierda, superior, inferior);
+    //scene.remove(derecha, izquierda, superior, inferior);
   })
 
   console.log(typeof medidas);

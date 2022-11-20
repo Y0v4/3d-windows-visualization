@@ -16,47 +16,63 @@
                 <form action="" method="post">
                     <div>
                         <label for="width">Width</label>
-                        <input type="number" name="width" id="width">
+                        <input type="number" name="width" id="width" required>
                     </div>
                     <div>
                         <label for="heigth">Heigth</label>
-                        <input type="number" name="heigth" id="heigth">
+                        <input type="number" name="heigth" id="heigth" required>
                     </div>
                     <div class="main-properity-form-type"> <!-- cuando estes menu se despliega debe de ocupar toda ña pantalla mostrando todos los tipos de ventana-->
                         <label class="main-properity-form-type-descripcion" for="select-type">Type Windows (prueba)</label><br>
-                        <select  id="typeSelect" >
+                        <select  id="typeSelect" required>
                             <option disabled selected>Tipo de corte</opcion>
-                            <option value="0">coredizo</option>
-                            <option value="1">coredizo con marcos</option>
+                            <option value="coredizo">coredizo</option>
+                            <option value="coredizoConMarcos">coredizo con marcos</option>
                         </select>
+
+                    </div>
+                    <!-- Esta parte no se muestra hasta que elijas una opcion -->
+                    <div id="sub-type">
+                        <div id="sub-type-corredizo">
+                            <input type="radio" class="opcionSubType" value="normal" name="opcionSubType" id="opcionSubType" checked>normal
+                            <input type="radio" class="opcionSubType" value="conPuente" name="opcionSubType">conPuente
+                            <input type="radio" class="opcionSubType" value="TuboEscondido" name="opcionSubType">TuboEscondido
+                        </div>
+                        <div id="sub-type-conMarco">
+                            <input type="radio" class="opcionSubType" value="transparente" name="opcionSubType1" checked>normaa
+                            <input type="radio" class="opcionSubType" value="value" name="opcionSubType1">conPuasdfa
+                            <input type="radio" class="opcionSubType" value="value" name="opcionSubType1">TuboEscasdfido 
+                        </div>
+                    </div>
+
+                    <div id="conteiner-optionColors">
+                        <p>what aluminio color?</p>
+                        <input type="radio" class="opcionColor" value="gris" name="optionColor" checked>gris
+                        <input type="radio" class="optionColor" value="negro" name="optionColor">negor
+                    </div>
+                    <div id="conteiner-typeWindow">
+                        <p>Type Windows</p>
+                        <input type="radio" class="opcionWindows" value="transparente" name="opcionWindows" checked>transparente
+                        <input type="radio" class="opcionWindows" value="catedral" name="opcionWindows">catedral
+                    </div>
+                    <div id="conteiner-opcionColor">
+                        <p>Color Windows</p>
+                        <input type="radio" class="opcionColor" value="transparente" name="opcionColor" checked>transparente
+                        <input type="radio" class="opcionColor" value="value" name="opcionColor">oscuro
+                    </div>
+                    <div id="conteiner-moreOrLess">
+                        <p>Increase or decrease leaves</p>
+                        <input type="button" class="moreOrLess" value="+" name="moreOrLess" checked>
+                        <input type="button" class="moreOrLess" value="-" name="moreOrLess">
                     </div>
                     <div>
-                        <p></p>
-                        <input type="text">
-                        <label for=""></label>
-                    </div>
-                    <div>
-                        <p></p>
-                        <input type="text">
-                        <label for=""></label>
-                    </div>
-                    <div>
-                        <p></p>
-                        <input type="text"><label for=""></label>
-                    </div>
-                    <div>
-                        <p></p>
-                        <input type="text"><label for=""></label>
-                    </div>
-                    <div>
-                        <p></p>
-                        <input type="text"><label for=""></label>
-                    </div>
-                    <div>
-                        <input type="button" value="iniciar" id="buttonIniciar"><label for=""></label>
+                        <input type="button" value="iniciar" id="buttonIniciar">
                     </div>
                 </form>
             </div>
+
+
+
 
             <div id="main-container3d">
             </div>
