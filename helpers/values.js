@@ -23,7 +23,7 @@ document.getElementById("heigth").addEventListener("keyup", (event)=>{
     let a = event.path[0].value;
     windowsFeatures.heigth = a;
     sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});s
+});
 
 document.getElementById("typeSelect").addEventListener("change", (event)=>{
     // Estableciendo el tipo 

@@ -49,10 +49,12 @@ cuerpo = function(tamaño, scene, position, cantidad){ // Recibe objetos
   }
 
   // Posicionando modelo
-  movertodo(position.x, position.y, position.z);
+  movertodo(position.x, position.y + (tamaño.heigth+6.5) / 2 , position.z);
 
   scene.add(derecha, izquierda, superior, inferior);
 }
+
+
 
 
 

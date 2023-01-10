@@ -33,10 +33,11 @@
 
   // ground
   let as = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({color: 0x808080, wireframe: true}))
-  let ad = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10), new THREE.MeshBasicMaterial({color: 0xcccccc}));
+  let ad = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10), new THREE.MeshBasicMaterial({color: 0x000000}));
+
   as.rotation.x = Math.PI / 2;
   ad.rotation.x = -Math.PI / 2;
-  as.position.y =+ 0.001;
+  as.position.y =+ 0;
 
 
   // Resize
