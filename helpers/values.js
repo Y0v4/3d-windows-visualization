@@ -9,87 +9,34 @@ let windowsFeatures = {
     colorVidrio: NaN,
     morOrLess: 0,
 }
-sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures))
 
 
-// Estableciendo los valores del input
-document.getElementById("width").addEventListener("keyup", (event)=>{
-    let a = event.path[0].value;
-    windowsFeatures.width = a;
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});
+// Constantes del formlario
+const form  = document.getElementById("form-conteiner");
+const inputs = document.querySelectorAll("#form-conteiner input")// ho vengo
 
-document.getElementById("heigth").addEventListener("keyup", (event)=>{
-    let a = event.path[0].value;
-    windowsFeatures.heigth = a;
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});
+// Capturando datos del formulario
+inputs.forEach( (input) => { /* todavia se puede optimizar mucho */
+    input.addEventListener("keyup", (event)=>{ // only number properitys
+        windowsFeatures.width = inputs[0].value;/* Ojo con los carecteres especiales ..--+++ */
+        windowsFeatures.heigth = inputs[1].value;
 
-document.getElementById("typeSelect").addEventListener("change", (event)=>{
-    // Estableciendo el tipo 
-    let a = event.path[0].value;
-    windowsFeatures.type = a;
+        // Enviando datos a session storage
+         sessionStorage.setItem("windows", JSON.stringify(windowsFeatures));
+    })
 
-    // Deshacer cada vez que cambies de opcion
-    document.getElementById("sub-type-conMarco").style.display = 'none';
-    document.getElementById("sub-type-corredizo").style.display = 'none';
-    document.getElementById("sub-type-corredizo").style.display = 'none';
-
-    // condicion para el problema el subtipo no se autoselesciona con el checkqed
-    // if (a === "0")a = "normal"
-
-
-    if (a === "coredizo"){
-        document.getElementById("sub-type-corredizo").style.display = 'block';
-
-        // condicion para el problema el subtipo no se autoselesciona con el checkqed
-        windowsFeatures.subType = "normal";// Eleccion por de fecto
+    input.addEventListener("click", ()=>{ // full properitys
+        inputs.forEach( (i, index)=>{ // mucho ojo con los el orden de los inputs
+            if (i.checked == true) {
+                if(inputs[index].name == "opcionSubType") windowsFeatures.type = inputs[index].value;
+                if(inputs[index].name == "opcionSubType1") windowsFeatures.subType = inputs[index].value;
+                if(inputs[index].name == "optionColor-aluminio") windowsFeatures.colorAluminio = inputs[index].value;
+                if(inputs[index].name == "opcionWindows") windowsFeatures.tipoVidrio = inputs[index].value;
+                if(inputs[index].name == "opcionColor-window") windowsFeatures.colorVidrio = inputs[index].value;
+                if(inputs[index].name == "moreOrLess") windowsFeatures.morOrLess = inputs[index].value;
+            }
+        })
+        // Enviando datos a session storage
         sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-        
-        document.getElementById("sub-type-corredizo").addEventListener("click", (i)=>{
-            windowsFeatures.subType = i.path[0].value;
-            sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-        })
-    }else if (a ==="coredizoConMarcos"){// Falta
-        document.getElementById("sub-type-conMarco").style.display = 'block';
-        document.getElementById("sub-type-conMarco").addEventListener("click", (e)=>{
-            windowsFeatures.subType = e.path[0].value;
-            sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-        })
-    }
-
-
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});
-
-document.getElementById("conteiner-optionColors").addEventListener("click", (e)=>{
-    windowsFeatures.colorAluminio = e.target.value;
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-    console.log(windowsFeatures.colorAluminio);
-});
-
-document.getElementById("conteiner-typeWindow").addEventListener("click", (e)=>{
-    windowsFeatures.tipoVidrio = e.target.value;
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});
-
-document.getElementById("conteiner-opcionColor").addEventListener("click", (e)=>{
-    windowsFeatures.colorVidrio = e.target.value;
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});
-
-document.getElementById("conteiner-moreOrLess").addEventListener("click", (e)=>{
-    if(e.target.value == "+")windowsFeatures.morOrLess++;
-    if(e.target.value == "-")windowsFeatures.morOrLess--;
-    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
-});
-
-// if ((Math.trunc(160 / a) + 2)  >= 37){
-
-// }   
-
-// for(let a = 1; (Math.trunc(160 / a) + 2)  >= 37; a++){
-//     var e = a;
-//     console.log(e);
-// }
-
+    })
+})

@@ -13,7 +13,7 @@
             <div class="main-properity">
                 aqui van las propiedades de la ventana
                 <h2 class="main-properity-title">¿WHAT IS YOUR WINDOW?</h2>
-                <form action="" method="post">
+                <form action="" method="post" id="form-conteiner">
                     <div>
                         <label for="width">Width</label>
                         <input type="number" name="width" id="width" required>
@@ -31,7 +31,7 @@
                         </select>
 
                     </div>
-                    <!-- Esta parte no se muestra hasta que elijas una opcion -->
+                    <!-- Esta parte no se muestra hasta que elijas una opcion; no xd-->
                     <div id="sub-type">
                         <div id="sub-type-corredizo">
                             <input type="radio" class="opcionSubType" value="normal" name="opcionSubType" id="opcionSubType" checked>normal
@@ -47,8 +47,8 @@
 
                     <div id="conteiner-optionColors">
                         <p>what aluminio color?</p>
-                        <input type="radio" class="opcionColor" value="gris" name="optionColor" checked>gris
-                        <input type="radio" class="optionColor" value="negro" name="optionColor">negor
+                        <input type="radio" class="opcionColor-aluminio" value="gris" name="optionColor-aluminio" checked>gris
+                        <input type="radio" class="optionColor-aluminio" value="negro" name="optionColor-aluminio">negor
                     </div>
                     <div id="conteiner-typeWindow">
                         <p>Type Windows</p>
@@ -57,8 +57,8 @@
                     </div>
                     <div id="conteiner-opcionColor">
                         <p>Color Windows</p>
-                        <input type="radio" class="opcionColor" value="transparente" name="opcionColor" checked>transparente
-                        <input type="radio" class="opcionColor" value="value" name="opcionColor">oscuro
+                        <input type="radio" class="opcionColor-window" value="transparente" name="opcionColor-window" checked>transparente
+                        <input type="radio" class="opcionColor-window" value="value" name="opcionColor-window">oscuro
                     </div>
                     <div id="conteiner-moreOrLess">
                         <p>Increase or decrease leaves</p>
