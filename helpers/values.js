@@ -22,18 +22,32 @@ inputs.forEach( (input) => { /* todavia se puede optimizar mucho */
         windowsFeatures.heigth = inputs[1].value;
 
         // Enviando datos a session storage
-         sessionStorage.setItem("windows", JSON.stringify(windowsFeatures));
+         sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
     })
 
     input.addEventListener("click", ()=>{ // full properitys
         inputs.forEach( (i, index)=>{ // mucho ojo con los el orden de los inputs
             if (i.checked == true) {
-                if(inputs[index].name == "opcionSubType") windowsFeatures.type = inputs[index].value;
-                if(inputs[index].name == "opcionSubType1") windowsFeatures.subType = inputs[index].value;
-                if(inputs[index].name == "optionColor-aluminio") windowsFeatures.colorAluminio = inputs[index].value;
-                if(inputs[index].name == "opcionWindows") windowsFeatures.tipoVidrio = inputs[index].value;
-                if(inputs[index].name == "opcionColor-window") windowsFeatures.colorVidrio = inputs[index].value;
-                if(inputs[index].name == "moreOrLess") windowsFeatures.morOrLess = inputs[index].value;
+                switch (inputs[index].name) {
+                    case "opcionSubType":
+                        windowsFeatures.type = inputs[index].value;
+                    break
+                    case "opcionSubType1":
+                        windowsFeatures.subType = inputs[index].value;
+                    break
+                    case "optionColor-aluminio":
+                        windowsFeatures.colorAluminio = inputs[index].value;
+                    break
+                    case "opcionType-windows":
+                        windowsFeatures.tipoVidrio = inputs[index].value;
+                    break
+                    case "opcionColor-window":
+                        windowsFeatures.colorVidrio = inputs[index].value;
+                    break
+                    case "moreOrLess":
+                        windowsFeatures.morOrLess = inputs[index].value;
+                    break
+                }
             }
         })
         // Enviando datos a session storage
