@@ -1,156 +1,154 @@
-// Funcion construvtora
-function cuadrado (width, heigth, numeroDeCortes){
+import * as THREE from "../library/three.module.js"// import library
+
+// DECLARANDO MODELOS
+// basicos
+let cube, planchaVidrio
+// complejos
+let cuerpo  
+// types
+let vidrioMarco, coredizo
+
+// FUNCTION
+// Funciones de apoyo
+function cuadrado (width, heigth, numeroDeCortes){// Funcion constructora
     this.width = width;
     this.heigth = heigth;
     this.numeroDeCortes = numeroDeCortes;
 }
-
-
-// Expresando medidas
-let medidas = {
-    width: NaN,
-    heigth: NaN,
-    Tipo : NaN,
-    subTipo: NaN,
-    colorAluminio: NaN,
-    tipoVidrio: NaN,
-    colorVidrio: NaN,
-    morOrLess: 0,
-    m :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    l :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    u :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    uU :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    h :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    portafelpas :  {heigth : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    puente :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    tuboRectangularesApoyo:  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    tuboRectangularesAncho :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    tuboRectangularesLargo :  {width : NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    vidrioFijo :  {width : NaN,heigth: NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}},
-    vidrioCoredizo :  {width : NaN,heigth: NaN, cantidad : 0, position : {x : NaN, y : NaN, z :NaN}}
-}
-
-
-// Funcion para transformar centimetros a centimetros3d
-function transform(centimetros){
+function transform(centimetros){// Funcion para transformar centimetros a centimetros3d
     centimetros = centimetros / 20; // Dato curioso cualquier division inexacta dara maximo dos decimales
-    return centimetros
+    return centimetros;
+}
+// Funcion de cambiar posicion
+function changePosition(figure, x, y, z){
+    if(x)figure.position.x += x;
+    if(y)figure.position.y += y;
+    if(z)figure.position.z += z;
+}
+// funcion mover
+function moverTodo(models, x, y, z) {// El parametro models recibe un arrauy
+    models.forEach((element, index)=>{
+        changePosition(element, x, y, z);
+    })
+}
+// Funcion material
+function material(color, wireframe){
+    let a = new THREE.MeshBasicMaterial({color: color, wireframe: wireframe});
+    return a;
+}
+
+// Funcion para clasificar el type
+function typeOfWindow (window){ // deve de reptornar el typo
+    let defaultType = window.type;
+    let width = window.width;
+    let heigth = window.heigth;
+
+    if (window.type == "normal"){
+        if (width <= 20 && heigth <= 20 ){
+            return windowsType.vidrioMarco(window);
+        }
+    }if (window.type == "coredizo"){
+        console.log("type == coredizoasd");// what
+    }else return windowsType.defaultType(window);
 }
 
 
-// Iniciar 
-document.getElementById("buttonIniciar").addEventListener("click", ()=>{
-    // Recibiendo datos del session storage
-    var window = JSON.parse(sessionStorage.getItem("windowsFeatures"));
-    console.log(typeof window.width);
+// MODELS
+// modelo de un cubo prueba
+cube = function(x, y, z, positionX, positionY, positionZ, color, wireframe){
+    // Material interno
+    let material = new THREE.MeshBasicMaterial({color: color, wireframe: wireframe});
+    // Generado modelo
+    let modelCube = new THREE.Mesh(new THREE.BoxGeometry(x, y, z),material);
+    // Position
+    modelCube.position.x = positionX;
+    modelCube.position.y = positionY;
+    modelCube.position.z = positionZ;
 
-    // Propertis
-    medidas.width = Number(window.width);
-    medidas.heigth = Number(window.heigth);
-    medidas.colorAluminio = window.colorAluminio;
-    medidas.tipoVidrio = window.tipoVidrio;
-    medidas.colorVidrio = window.colorVidrio;
-    medidas.morOrLess = window.morOrLess;
+    return modelCube
+}
+planchaVidrio = function(x, y, z){
+    let vidrio = cube(x, y, z, 0, 0, 0, 0x00ff00, true); 
+    return vidrio
+}
+
+// Modelo cuerpo
+cuerpo = function (tamaño) { // Recibe objetos
+    // los datos que recibe son en centimetros asi lo combertimos a centimetros3d
+    tamaño.width = transform(tamaño.width);
+    tamaño.heigth = transform(tamaño.heigth);
     
+    // Creando modelo cuerpo
+    let derecha = cube(5, 6.5+tamaño.heigth, 1.5, -tamaño.width / 2 - 2.5, 0,0, 0x808080, true);
+    let izquierda = cube(5, 6.5+tamaño.heigth, 1.5, tamaño.width / 2 + 2.5, 0,0, 0x808080, true);
+    let superior = cube(tamaño.width, 1.5, 1.5, 0, (tamaño.heigth + 6.5) / 2 - 0.75,0, 0x808080, true);
+    let inferior = cube(tamaño.width, 5, 1.5, 0, -(tamaño.heigth + 6.5) / 2 + 2.5,0, 0x808080       , true);
+    // array para mover el modelo en conjunto
+    let arrayCuerpo = [derecha, izquierda, superior, inferior];
+
+    moverTodo(arrayCuerpo, 0, (tamaño.heigth+6.5) / 2, 0);
+   return arrayCuerpo;
+}
+// vidrio comun con marco
+vidrioMarco = (tamaño)=>{// No se considera milimetros
+    // los datos que recibe son en centimetros asi lo combertimos a centimetros3d
+    let width = transform(tamaño.width);
+    let heigt = transform(tamaño.heigth);
+    // Definiendo modelos
+    let aluminio = cube(width, 0.1, 0.1, 0, 0, 0, 0x00ff00, true);
+    let vidrio = planchaVidrio(width, heigt, 0.06);
+    aluminio.position.y = (heigt/2);
+    // Crando el arreglo
+    let arreglo = [aluminio, vidrio];
     
-    // Definiendo funcion
-    if (window.type === "coredizo"){
-        
-
-
-    }else if (window.type === "coredizoConMarcos"){
-
+    moverTodo(arreglo, 0, (heigt+10)/2);
+    return arreglo;
+}
+// Coredizo
+coredizo = (tamaño)=>{
+    // los datos que recibe son en centimetros asi lo combertimos a centimetros3d
+    let width = transform(tamaño.width);
+    let heigt = transform(tamaño.heigth);
+    // FUNCIONES DE SUBTYPE
+    function coredizoBaño(tamaño){// Funcion corredizo baño
+        alert("sub tipo coredizo baño no disponible");
     }
-
-
-
-    // ojo solo  de pueba
-    sessionStorage.setItem("medidas", JSON.stringify(medidas));
-})
-
-
-
-// Types
-
-// Type corredizo
-function functionCoredizo(medidas) {
-
-    
-    // Definiendo el subTipo
-    let newHeigth = medidas.heigth;
-    if (medidas.heigth < 180) {
-        medidas.subTipo = "normal";// falta declarar la funcion normal
-        normal(medidas);
-    }else if (medidas.heigth >= 180) {
-        medidas.subTipo = "conPuente";
-        newHeigth = Math.trunc((medidas.heigth / 100)*80);
-    }// Aaui falta un elseif de tubo escondido;
-
- 
-
-
-    // Definiendo medidas segun el subtipo de ventana
-    function normal(medidas) {
-        // Definiendo numero de hojas
-        
-        for(let a = 1; Math.trunc(medidas.width / a)  >= 37; a++){
-            var e = a;
-            console.log(e);
+    function tuboEscondido(tamaño){
+        alert("sub tipo tubo coredizo no disponible");// Funciontubo escondido
+    }
+    function coredizoNormal(tamaño){// Funcion de coredizo normal
+        // FUNCIONES SUB-SUBTYPE DE COREDIZO NORMAL
+        function coredizoNormal_normal(tamaño){
+            if (tamaño.sub_subType){
+                console.error("sub-subtype presionado");
+            }
+            if (tamaño.changeStyle){
+                console.error("changeStyle presionado");
+            }
+            alert("sub-subtipo normal no disponible");  
         }
-        
-
-
-
-        // Estableciendo datos
-        medidas.m.width = medidas.width,
-        medidas.m.position = {x: 0, y: (6.5+transform(medidas.heigth))/2-1.5 ,z: 0};
-        medidas.m.cantidad = 1;
-
-        medidas.l.width = medidas.width;
-        medidas.l.position = {x: 0, y: -(6.5+transform(medidas.heigth))+5 ,z: 0};
-        medidas.l.cantidad = 1;
-
-        medidas.u.width = medidas.width/3+0.1;
-        medidas.u.position = {x: 0, y: -(6.5+transform(medidas.heigth))+5 ,z: 1};
-        medidas.u.cantidad = NaN;
-
-        medidas.vidrioFijo.width = medidas.u.width;
-        medidas.vidrioFijo.heigth = medidas.width-0.1;
-        medidas.vidrioFijo.position = medidas.u.position
-        medidas.vidrioFijo.cantidad = 2;
-
-        medidas.vidrioCoredizo.width = medidas.u.width;
-        medidas.vidrioCoredizo.heigth = medidas.width-0.15;
-        medidas.vidrioCoredizo.position = {x: 0, y: -(6.5+transform(medidas.heigth))+5+1.5 ,z: 0}
-        medidas.vidrioCoredizo.cantidad = 1;
-
-        medidas.h.width = medidas.width/3+0.1;
-        medidas.h.position = {x: 0, y: -(6.5+transform(medidas.heigth))+5+0.05 ,z: 1};
-        medidas.h.cantidad = 1;
-
-        medidas.portafelpas.heigth = medidas.heigth-0.1;
-        medidas.portafelpas.position = {x: 0, y: -(6.5+transform(medidas.heigth))+5+0.05 ,z: 0};
-        medidas.portafelpas.cantidad = 2;
-
-        // enviando datos
-        sessionStorage.setItem("medidas", JSON.stringify(medidas));
+        function coredizoNormal_conPuente(tamaño){
+            alert("sub-subtype conPuente");
+        }
     }
-    function conPuente(){
-        medidas.puente.width = width,
-        medidas.puente.cantidad = 1,
-        medidas.l.width = newHeigth,
-        medidas.l.cantidad = 1,
-        medidas.uU.width = width,
-        medidas.uU.cantidad = 1
-    };
+    // Definir el SUB-TIPO de coredizo segun la medida
 
 
 
 
-    sessionStorage.setItem("medidas", medidas)
-};
+}
 
 
+// Agrupando modelos en un objeto
+const models = {
+    cuerpo: cuerpo,
+    cube: cube
+}
+// Agrupando funciones para exportar
+const windowsType = {
+    typeOfWindow: typeOfWindow,
+    vidrioMarco: vidrioMarco
+}
 
-
-
+// EXPORT
+export { windowsType, models }

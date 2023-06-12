@@ -1,19 +1,19 @@
 // Caracteristicas
-let windowsFeatures = {
+const windowsFeatures = {
     width: NaN,
     heigth: NaN,
-    type: NaN,
+    type: "normal",
     subType: NaN,
+    sub_SubType: NaN,
+    changeStyle: NaN,
     colorAluminio: NaN,
     tipoVidrio: NaN,
     colorVidrio: NaN,
     morOrLess: 0,
 }
-
-
 // Constantes del formlario
-const form  = document.getElementById("form-conteiner");
-const inputs = document.querySelectorAll("#form-conteiner input")// ho vengo
+const inputs = document.querySelectorAll("#form-conteiner input")// ho me vengo
+const options = document.querySelector("#typeSelect")//
 
 // Capturando datos del formulario
 inputs.forEach( (input) => { /* todavia se puede optimizar mucho */
@@ -26,12 +26,9 @@ inputs.forEach( (input) => { /* todavia se puede optimizar mucho */
     })
 
     input.addEventListener("click", ()=>{ // full properitys
-        inputs.forEach( (i, index)=>{ // mucho ojo con los el orden de los inputs
-            if (i.checked == true) {
+        inputs.forEach( (element, index)=>{ // mucho ojo con los el orden de los inputs
+            if (element.checked == true) {
                 switch (inputs[index].name) {
-                    case "opcionSubType":
-                        windowsFeatures.type = inputs[index].value;
-                    break
                     case "opcionSubType1":
                         windowsFeatures.subType = inputs[index].value;
                     break
@@ -53,4 +50,9 @@ inputs.forEach( (input) => { /* todavia se puede optimizar mucho */
         // Enviando datos a session storage
         sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures));
     })
+})
+// Opstion
+options.addEventListener("change",  (event)=>{
+    windowsFeatures.type = event.target.value;
+    sessionStorage.setItem("windowsFeatures", JSON.stringify(windowsFeatures))
 })

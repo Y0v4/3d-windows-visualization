@@ -1,21 +1,22 @@
-  import * as THREE from "./library/three.module.js"; // Import library
+  // Import library
+  import * as THREE from "./library/three.module.js";
   import { OrbitControls } from "./library/orbitControls.js"; // Import OrbitControl
+  // Import types
+  import { windowsType, models } from "./function/windowsType.js";
 
-
-  import { models } from "./module/windowsModels.js";      // Import figure
 
 
   // Creating scene
-  var scene = new THREE.Scene();
+  let scene = new THREE.Scene();
   scene.background = new THREE.Color(0x2a3b4c)
 
 
   // Add camera
-  var camera = new THREE.PerspectiveCamera(
+  let camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth/window.innerHeight
   )
-  camera.position.z = 10; 
+  camera.position.z = 10;
 
 
   // Renderer
@@ -25,19 +26,18 @@
     
 
   // Add geometry asdsdfasdfsdf
-  var geometry = new THREE.BoxGeometry(0.1, 5, 0.5);
-  var geometry1 = new THREE.BoxGeometry(0.5, 5, 0.1);
-  var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
-  var puntoInnicial = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
+  let geometry = new THREE.BoxGeometry(0.1, 5, 0.5);
+  let geometry1 = new THREE.BoxGeometry(0.5, 5, 0.1);
+  let material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
+  let cuadradoRefencia = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 0.1), material);
 
 
   // ground
-  let as = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({color: 0x808080, wireframe: true}))
-  let ad = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10), new THREE.MeshBasicMaterial({color: 0x000000}));
-
-  as.rotation.x = Math.PI / 2;
+  let plano = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10, 10), new THREE.MeshBasicMaterial({color: 0x808080, wireframe: true}))
+  let ad = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 10), new THREE.MeshBasicMaterial({color: 0x000000}));// No se que hace
+  plano.rotation.x = Math.PI / 2;
   ad.rotation.x = -Math.PI / 2;
-  as.position.y =+ 0;
+  plano.position.y =+ 0;
 
 
   // Resize
@@ -60,34 +60,36 @@
   controls.maxPolarAngle = Math.PI *  2;
   controls.screenSpacePanning = true;
 
-
+  // Funcion para render de cada uno de los modelos
+  function render (window) {// recibe un array
+    if (window instanceof Array){
+      window.forEach(element => {
+          scene.add(element)
+      });
+    }else console.error("nel perro");
+  }
   
   
   // Funcion interprete
   function interprete(){// Esta funcion recoje datos de los modelos y tipos y los renderiza mm..
     // Guardando el ojeto de windowsType
-    let medidas =  JSON.parse(sessionStorage.getItem("medidas")); 
+    const medidas = JSON.parse(sessionStorage.getItem("windowsFeatures"));
+
+    // Probando nueva estructura
+    let asd = windowsType.typeOfWindow(medidas);
+    console.log(windowsType.typeOfWindow(medidas))
+    render(asd);
+    let as = models.cuerpo(medidas);
+    render(as)
     
-    console.log("renderizado funcionando")
-    // Renderizando el cuerpo
-    models.cuerpo(
-      {width: medidas.width, heigth: medidas.heigth},
-      scene,
-      {x: 0, y: 0, z: 0}// askldflk cuidado con lAS PUTAS CADENAS DE TEXTO AHHHHHH
-      //{x: NaN, y: ((130+medidas.heigth)/40), z: NaN}// askldflk cuidado con lAS PUTAS CADENAS DE TEXTO AHHHHHH
-    );
-    console.log(medidas)
   }
 
 
   // Iniciar esta cosa
   document.getElementById("buttonIniciar").addEventListener("click", ()=>{
     interprete();
-    sessionStorage.removeItem("medidas");
     //scene.remove(derecha, izquierda, superior, inferior);
   })
-
-  console.log(typeof medidas);
 
 
   var cube = new THREE.Mesh(geometry, material);
@@ -95,9 +97,9 @@
   scene.position.x = 2 // Esto tiene que ser responsivo
   cube2.position.x = 0.3
   cube2.position.z = 0.2
-  console.log(THREE);
 
-  scene.add(cube, cube2, as, puntoInnicial)
+
+  scene.add(plano, cuadradoRefencia)
 
 
   //animation
@@ -107,6 +109,4 @@
     //cube.rotation.y += 0.01;
     renderer.render(scene, camera);
   };
-
-  animate();
-              
+  animate(); 

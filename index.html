@@ -11,7 +11,6 @@
     <div id="container">
         <main id="main">
             <div class="main-properity">
-                aqui van las propiedades de la ventana
                 <h2 class="main-properity-title">¿WHAT IS YOUR WINDOW?</h2>
                 <form action="" method="post" id="form-conteiner">
                     <div>
@@ -26,10 +25,10 @@
                         <label class="main-properity-form-type-descripcion" for="select-type">Type Windows (prueba)</label><br>
                         <select  id="typeSelect" required>
                             <option disabled selected>Tipo de corte</opcion>
-                            <option value="coredizo">coredizo</option>
-                            <option value="coredizoConMarcos">coredizo con marcos</option>
+                            <option value="fixedGlass" name="fixedGlass">vidrio fijo</option>
+                            <option value="coredizo" name="coredizo">coredizo</option>
+                            <option value="coredizoConMarcos" name="coredizoConMarcos">coredizo con marcos</option>
                         </select>
-
                     </div>
                     <!-- Esta parte no se muestra hasta que elijas una opcion; no xd-->
                     <div id="sub-type">
@@ -62,8 +61,8 @@
                     </div>
                     <div id="conteiner-moreOrLess">
                         <p>Increase or decrease leaves</p>
-                        <input type="button" class="moreOrLess" value="+" name="moreOrLess" checked>
-                        <input type="button" class="moreOrLess" value="-" name="moreOrLess">
+                        <input type="button" class="moreOrLess" value="<" name="more">
+                        <input type="button" class="moreOrLess" value=">" name="less">
                     </div>
                     <div>
                         <input type="button" value="iniciar" id="buttonIniciar">
