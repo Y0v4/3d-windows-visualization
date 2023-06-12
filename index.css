@@ -24,4 +24,7 @@
     border-radius: 1%;
 }
 
+#sub-type-corredizo, #sub-type-conMarco{
+    display: none;
+}
 
